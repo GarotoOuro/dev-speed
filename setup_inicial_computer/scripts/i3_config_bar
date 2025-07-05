@@ -18,9 +18,12 @@ fi
 cat <<EOF >> "$CONFIG_PATH"
 
 bar {
+    status_command i3status
     position top
-    # hidden_state hide
+    mode invisible
+    hidden_state hide
 }
+
 EOF
 
 # Verificação final
