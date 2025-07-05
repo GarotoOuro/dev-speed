@@ -1,0 +1,14 @@
+# 1. Criar pasta se não existir
+mkdir -p ~/.local/bin
+
+# 2. Baixar a versão 0.11.2 do Neovim
+curl -L https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-x86_64.appimage \
+  -o ~/.local/bin/nvim
+
+# 3. Tornar executável
+chmod +x ~/.local/bin/nvim
+
+grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.profile || sed -i -e '$aexport PATH="$HOME/.local/bin:$PATH"' ~/.profile
+
+grep --color=always 'export PATH=.*\.local/bin.*' ~/.profile
+echo 'Use ~/.profile' para atualizar o nvim nos shell abertos anteriormente.

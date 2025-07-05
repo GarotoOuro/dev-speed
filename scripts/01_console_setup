@@ -1,0 +1,8 @@
+sudo sed -i \
+  -e 's/^FONTFACE=.*/FONTFACE="Terminus"/' \
+  -e 's/^FONTSIZE=.*/FONTSIZE="12x24"/' \
+  /etc/default/console-setup
+
+
+grep -E '^FONTFACE=|^FONTSIZE=' /etc/default/console-setup
+

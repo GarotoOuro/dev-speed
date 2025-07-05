@@ -1,2 +1,4 @@
 # dev-speed
 
+
+startx
