@@ -1,12 +1,20 @@
-#!/bin/sh
+#!/usr/bin/env dash
 
-mkdir -p ~/.config/i3
 CONFIG_PATH="$HOME/.config/i3/config"
 
-# Remove bloco antigo se existir
-[ -f "$CONFIG_PATH" ] && sed -i '/^bar[[:space:]]*{/,/^}/d' "$CONFIG_PATH"
+# Garante que o diretório ~/.config/i3 existe
+mkdir -p "$(dirname "$CONFIG_PATH")"
 
-# Acrescenta novo bloco de forma segura com cat <<EOF
+# Se o arquivo existe, remove bloco antigo e quebras finais
+if [ -f "$CONFIG_PATH" ]; then
+    # Remove bloco `bar { ... }` se existir
+    sed -i '/^bar[[:space:]]*{/,/^}/d' "$CONFIG_PATH"
+
+    # Remove todas as linhas em branco no final do arquivo
+    sed -i ':a;/^\n*$/{$d;N;ba}' "$CONFIG_PATH"
+fi
+
+# Insere novo bloco
 cat <<EOF >> "$CONFIG_PATH"
 
 bar {
@@ -26,4 +34,9 @@ bar {
     modifier none
 }
 EOF
+
+# Verificação final
+echo
+echo "✅ Bloco da barra atualizado:"
+grep -A 10 '^bar {' "$CONFIG_PATH"
 
