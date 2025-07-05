@@ -1,0 +1,13 @@
+#!/usr/bin/env dash
+
+CONFIG="$HOME/.config/i3/config"
+mkdir -p "$(dirname "$CONFIG")"
+touch "$CONFIG"
+
+# Substitui terminal do $mod+Return
+sed -i 's|^bindsym \$mod\+Return exec .*|bindsym $mod+Return exec alacritty|' "$CONFIG"
+
+# Mostra o resultado final
+echo "[✔] Linha atual:"
+grep '^bindsym $mod+Return exec' "$CONFIG"
+
