@@ -1,0 +1,29 @@
+#!/bin/sh
+
+mkdir -p ~/.config/i3
+CONFIG_PATH="$HOME/.config/i3/config"
+
+# Remove bloco antigo se existir
+[ -f "$CONFIG_PATH" ] && sed -i '/^bar[[:space:]]*{/,/^}/d' "$CONFIG_PATH"
+
+# Acrescenta novo bloco de forma segura com cat <<EOF
+cat <<EOF >> "$CONFIG_PATH"
+
+bar {
+    # Define o comando que gera as informações exibidas na barra
+    status_command i3status
+
+    # Define que a barra ficará no topo da tela (em vez de bottom, que é o padrão)
+    position top
+
+    # A barra ficará oculta por padrão e será exibida apenas sob demanda
+    mode hide
+
+    # A barra começa oculta ao iniciar o i3 (combinado com \`mode hide\`)
+    hidden_state hide
+
+    # Define que a barra aparecerá ao passar o mouse (sem pressionar nenhuma tecla)
+    modifier none
+}
+EOF
+
