@@ -4,10 +4,10 @@ CONFIG="$HOME/.config/i3/config"
 mkdir -p "$(dirname "$CONFIG")"
 touch "$CONFIG"
 
-# Substitui terminal do $mod+Return
-sed -i 's|^bindsym \$mod\+Return exec .*|bindsym $mod+Return exec alacritty|' "$CONFIG"
+# Substituir qualquer terminal atual por 'alacritty'
+sed -i 's|^bindsym \$mod+Return exec .*|bindsym $mod+Return exec alacritty|' "$CONFIG"
 
-# Mostra o resultado final
+# Mostrar resultado
 echo "[✔] Linha atual:"
-grep '^bindsym $mod+Return exec' "$CONFIG"
+grep '^bindsym \$mod+Return exec' "$CONFIG"
 
