@@ -1,0 +1,75 @@
+# Tecla Mod (Super/Windows)
+set $mod Mod4
+
+# Terminal padrão
+bindsym $mod+Return exec alacritty
+
+# Fechar janela
+bindsym $mod+Shift+q kill
+
+# Mover entre janelas
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Trocar janelas de lugar
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Split horizontal/vertical
+bindsym $mod+v split v
+bindsym $mod+b split h
+
+# Modo de redimensionamento
+bindsym $mod+r mode "resize"
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Trocar entre janelas em tiling/float
+bindsym $mod+Shift+space floating toggle
+
+# Alternar layout
+bindsym $mod+space layout toggle split
+
+# Mostrar janelas (dmenu)
+bindsym $mod+d exec dmenu_run
+
+# Reiniciar i3
+bindsym $mod+Shift+r restart
+
+# Sair do i3
+bindsym $mod+Shift+e exit
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+
+# Move janelas entre workspaces
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+
+# Status bar simples
+bar {
+    status_command i3status
+}
