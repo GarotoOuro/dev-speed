@@ -1,13 +1,19 @@
 #!/usr/bin/env dash
 
+TERMINAL=st  # ← change to desired terminal
 CONFIG="$HOME/.config/i3/config"
+
 mkdir -p "$(dirname "$CONFIG")"
 touch "$CONFIG"
 
-# Substituir qualquer terminal atual por 'alacritty'
-sed -i 's|^bindsym \$mod+Return exec .*|bindsym $mod+Return exec alacritty|' "$CONFIG"
+# Replace bindsym with chosen terminal
+sed -i "s|^bindsym \$mod+Return exec .*|bindsym \$mod+Return exec $TERMINAL|" "$CONFIG"
 
-# Mostrar resultado
-echo "[✔] Linha atual:"
+# Green [  OK  ] style
+GREEN='\033[1;32m'
+RESET='\033[0m'
+
+# Show output
+printf "%s[  OK  ]%s Updated i3 config:\n" "$GREEN" "$RESET"
 grep '^bindsym \$mod+Return exec' "$CONFIG"
 
