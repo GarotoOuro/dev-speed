@@ -1,14 +1,17 @@
 #!/bin/dash
 
-# Valor padrão se não for passado argumento
+# Pega percentual do argumento, padrão 20%
 P=${1:-20}
 
-# Lê o brilho máximo
+# Lê valor máximo
 MAX=$(cat /sys/class/backlight/amdgpu_bl1/max_brightness)
 
-# Calcula valor real (inteiro)
+# Calcula brilho absoluto
 VAL=$(expr "$MAX" \* "$P" / 100)
 
-# Aplica o valor
-echo "$VAL" | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+# Aplica brilho
+echo "$VAL" | sudo tee /sys/class/backlight/amdgpu_bl1/brightness >/dev/null
+
+# Mostra o percentual aplicado
+echo "Brilho definido para ${P}%"
 
