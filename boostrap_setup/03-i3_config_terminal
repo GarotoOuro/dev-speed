@@ -1,6 +1,6 @@
 #!/usr/bin/env dash
 
-TERMINAL=st  # ← change to desired terminal
+TERMINAL=wezterm  # ← change to desired terminal
 CONFIG="$HOME/.config/i3/config"
 
 mkdir -p "$(dirname "$CONFIG")"
