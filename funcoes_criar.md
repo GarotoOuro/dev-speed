@@ -21,3 +21,5 @@ gq() {
   git push
 }
 
+sudo apt install -y xclip
+
