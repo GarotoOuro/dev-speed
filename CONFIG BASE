@@ -1,1 +1,0 @@
-sudo apt install --no-install-recommends --no-install-suggests xserver-xorg-core xinit i3 alacritty
