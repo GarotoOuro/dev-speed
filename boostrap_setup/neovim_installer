@@ -1,12 +1,12 @@
 #!/bin/sh
 
+# Author: Guilherme Gonçalves da Silva (GitHub: GarotoOuro)
+
 # Arrange
 URL="https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-x86_64.appimage"
 BIN="$HOME/.local/bin"
 TARGET="nvim"
 TARGET_PATH="$BIN/$TARGET"
-LINE="export PATH=\"\$HOME/.local/bin:\$PATH\""
-PROFILE="$HOME/.profile"
 SUCCESS_COLOR="$(printf '\033[1;32m')"
 RESET_COLOR="$(printf '\033[0m')"
 
@@ -15,17 +15,14 @@ mkdir -p "$BIN"
 wget -q "$URL" -O "$TARGET_PATH"
 chmod +x "$TARGET_PATH"
 
-grep -qxF "$LINE" "$PROFILE" || echo "$LINE" >> "$PROFILE"
-
-# shellcheck disable=SC1090
-. "$PROFILE"
-
-
 # Assert
-if command -v "$TARGET" >/dev/null 2>&1; then
+PATH="$BIN:$PATH" command -v "$TARGET" >/dev/null 2>&1 && {
   printf "%s[ ok ]%s Neovim instalado em: %s\n" "$SUCCESS_COLOR" "$RESET_COLOR" "$TARGET_PATH"
-  printf "%s[ ok ]%s PATH contém ~/.local/bin\n" "$SUCCESS_COLOR" "$RESET_COLOR"
-else
-  printf "%s[ ! ]%s Erro: Neovim não disponível no PATH\n" "$SUCCESS_COLOR" "$RESET_COLOR"
-fi
+  printf "%s[ ok ]%s Adicione isso ao seu .zshrc:\n" "$SUCCESS_COLOR" "$RESET_COLOR"
+  printf '    export PATH="$HOME/.local/bin:$PATH"\n'
+} || {
+  printf "%s[ ! ]%s Neovim instalado, mas não encontrado no PATH atual\n" "$SUCCESS_COLOR" "$RESET_COLOR"
+  printf "%s[ i ]%s Você deve adicionar ao seu .zshrc (não use .profile):\n" "$SUCCESS_COLOR" "$RESET_COLOR"
+  printf '    export PATH="$HOME/.local/bin:$PATH"\n'
+}
 
