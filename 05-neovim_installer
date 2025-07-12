@@ -12,3 +12,6 @@ grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.profile || sed -i -e '$aexpo
 
 grep --color=always 'export PATH=.*\.local/bin.*' ~/.profile
 echo 'Use ~/.profile' para atualizar o nvim nos shell abertos anteriormente.
+
+. ~/.profile
+echo '"Use . ~/.profile" nos outros terminais para atualizar'
