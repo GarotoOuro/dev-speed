@@ -17,7 +17,7 @@ chmod +x "$TARGET_PATH"
 
 grep -qxF "$LINE" "$PROFILE" || echo "$LINE" >> "$PROFILE"
 
-# shellcheck source="/dev/null"
+# shellcheck disable=SC1090
 . "$PROFILE"
 
 
