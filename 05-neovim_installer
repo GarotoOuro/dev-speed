@@ -1,17 +1,30 @@
-# 1. Criar pasta se não existir
-mkdir -p ~/.local/bin
+#!/bin/sh
 
-# 2. Baixar a versão 0.11.2 do Neovim
-curl -L https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-x86_64.appimage \
-  -o ~/.local/bin/nvim
+# Arrange
+URL="https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-x86_64.appimage"
+BIN="$HOME/.local/bin"
+TARGET="nvim"
+TARGET_PATH="$BIN/$TARGET"
+LINE="export PATH=\"\$HOME/.local/bin:\$PATH\""
+PROFILE="$HOME/.profile"
+SUCCESS_COLOR="$(printf '\033[1;32m')"
+RESET_COLOR="$(printf '\033[0m')"
 
-# 3. Tornar executável
-chmod +x ~/.local/bin/nvim
+# Act
+mkdir -p "$BIN"
+wget -q "$URL" -O "$TARGET_PATH"
+chmod +x "$TARGET_PATH"
 
-grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.profile || sed -i -e '$aexport PATH="$HOME/.local/bin:$PATH"' ~/.profile
+grep -qxF "$LINE" "$PROFILE" || echo "$LINE" >> "$PROFILE"
 
-grep --color=always 'export PATH=.*\.local/bin.*' ~/.profile
-echo 'Use ~/.profile' para atualizar o nvim nos shell abertos anteriormente.
+# shellcheck source=/dev/null
+. "$PROFILE"
 
-. ~/.profile
-echo '"Use . ~/.profile" nos outros terminais para atualizar'
+# Assert
+if command -v "$TARGET" >/dev/null 2>&1; then
+  printf "%s[ ok ]%s Neovim instalado em: %s\n" "$SUCCESS_COLOR" "$RESET_COLOR" "$TARGET_PATH"
+  printf "%s[ ok ]%s PATH contém ~/.local/bin\n" "$SUCCESS_COLOR" "$RESET_COLOR"
+else
+  printf "%s[ ! ]%s Erro: Neovim não disponível no PATH\n" "$SUCCESS_COLOR" "$RESET_COLOR"
+fi
+
