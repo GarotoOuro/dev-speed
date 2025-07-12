@@ -17,7 +17,9 @@ chmod +x "$TARGET_PATH"
 
 grep -qxF "$LINE" "$PROFILE" || echo "$LINE" >> "$PROFILE"
 
+# shellcheck source="/dev/null"
 . "$PROFILE"
+
 
 # Assert
 if command -v "$TARGET" >/dev/null 2>&1; then
